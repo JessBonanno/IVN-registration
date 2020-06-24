@@ -3,11 +3,14 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router } from 'react-router-dom';
 import theme from './ui/Theme';
 import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+  Typography,
+  Grid,
+  Button,
+  StepLabel,
+  Step,
+  Stepper,
+} from '@material-ui/core';
 
 // local components
 import ServiceRequests from './ServiceRequests';
@@ -23,6 +26,10 @@ const useStyles = makeStyles(theme => ({
   instructions: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+  },
+  stepperNavContainer: {
+    margin: '3em 0',
+    padding: '0 10em',
   },
 }));
 
@@ -96,22 +103,26 @@ function App() {
   );
 
   const stepperNav = (
-    <div>
-      <Button
-        disabled={activeStep === 0}
-        onClick={handleBack}
-        className={classes.button}>
-        Back
-      </Button>
+    <Grid container justify='space-between' className={classes.stepperNavContainer}>
+      <Grid item>
+        <Button
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          className={classes.button}>
+          Back
+        </Button>
+      </Grid>
 
-      <Button
-        variant='contained'
-        color='primary'
-        onClick={handleNext}
-        className={classes.button}>
-        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-      </Button>
-    </div>
+     <Grid item>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={handleNext}
+          className={classes.button}>
+          {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+        </Button>
+     </Grid>
+    </Grid>
   );
 
   return (
@@ -119,7 +130,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           {stepper}
-          <ServiceRequests/>
+          <ServiceRequests />
           {stepperNav}
         </Router>
       </ThemeProvider>

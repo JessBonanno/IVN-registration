@@ -2,7 +2,7 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid, Avatar } from '@material-ui/core';
+import { Typography, Grid, Avatar, Button, Chip } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     '& > *': {
-      margin: theme.spacing(5),
+      margin: theme.spacing(3),
       width: theme.spacing(80),
       height: theme.spacing(40),
     },
@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
   large: {
     width: theme.spacing(7),
     height: theme.spacing(7),
+    boxShadow: '2px 4px 12px rgba(0, 0, 0, 0.30)',
   },
   gridContainer: {
     padding: '2em 6em',
@@ -31,7 +32,20 @@ const useStyles = makeStyles(theme => ({
   avatarContainer: {
     width: 100,
   },
+  serviceButton: {
+    width: 200,
+    margin: '.5em 0',
+  },
 }));
+
+const services = [
+  'Personal Protection Products',
+  'Shopping Services',
+  'Helpline',
+  'Volunteer Support Services',
+  'Money',
+  'Mentor Job Seekers',
+];
 
 export default function ServiceRequests() {
   const classes = useStyles();
@@ -107,15 +121,21 @@ export default function ServiceRequests() {
           alignItems='center'
           className={classes.gridContainer}>
           <Grid item>
-            <Typography variant='h3'>What would you like to request help for?</Typography>
+            <Typography variant='h3'>
+              What would you like to request help for?
+            </Typography>
           </Grid>
           <Grid
             item
             container
             justify='space-evenly'
             style={{ margin: '2em 0' }}>
-                
-            </Grid>
+            {services.map(service => (
+              <Grid item>
+                <Chip label={`${service}`} clickable color='secondary' className={classes.serviceButton} />
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
       </Paper>
     </div>
