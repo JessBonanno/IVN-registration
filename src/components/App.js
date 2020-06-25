@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import theme from './ui/Theme';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -103,7 +103,10 @@ function App() {
   );
 
   const stepperNav = (
-    <Grid container justify='space-between' className={classes.stepperNavContainer}>
+    <Grid
+      container
+      justify='space-between'
+      className={classes.stepperNavContainer}>
       <Grid item>
         <Button
           disabled={activeStep === 0}
@@ -113,7 +116,7 @@ function App() {
         </Button>
       </Grid>
 
-     <Grid item>
+      <Grid item>
         <Button
           variant='contained'
           color='primary'
@@ -121,7 +124,7 @@ function App() {
           className={classes.button}>
           {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
         </Button>
-     </Grid>
+      </Grid>
     </Grid>
   );
 
@@ -130,7 +133,15 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           {stepper}
-          <ServiceRequests />
+          <Route
+            exact
+            path='/'
+            render={props => (
+              <ServiceRequests
+                {...props}
+              />
+            )}
+          />
           {stepperNav}
         </Router>
       </ThemeProvider>

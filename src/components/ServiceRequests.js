@@ -2,7 +2,12 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid, Avatar, Button, Chip } from '@material-ui/core';
+import { Typography, Grid, Avatar, Chip, Modal } from '@material-ui/core';
+
+// local components 
+
+
+
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -39,12 +44,35 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const services = [
-  'Personal Protection Products',
-  'Shopping Services',
-  'Helpline',
-  'Volunteer Support Services',
-  'Money',
-  'Mentor Job Seekers',
+  {
+    name: 'Personal Protection Products',
+    id: '1',
+  },
+  {
+    name: 'Shopping Services',
+
+    id: '2',
+  },
+  {
+    name: 'Helpline',
+
+    id: '3',
+  },
+  {
+    name: 'Volunteer Support Services',
+
+    id: '4',
+  },
+  {
+    name: 'Money',
+
+    id: '5',
+  },
+  {
+    name: 'Mentor Job Seekers',
+
+    id: '6',
+  },
 ];
 
 export default function ServiceRequests() {
@@ -132,7 +160,12 @@ export default function ServiceRequests() {
             style={{ margin: '2em 0' }}>
             {services.map(service => (
               <Grid item>
-                <Chip label={`${service}`} clickable color='secondary' className={classes.serviceButton} />
+                <Chip
+                  label={`${service.name}`}
+                  clickable
+                  color='secondary'
+                  className={classes.serviceButton}
+                />
               </Grid>
             ))}
           </Grid>
