@@ -1,6 +1,11 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route, useHistory, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  useHistory,
+  Link,
+} from 'react-router-dom';
 import theme from './ui/Theme';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -111,6 +116,8 @@ function App() {
       className={classes.stepperNavContainer}>
       <Grid item>
         <Button
+          component={Link}
+          to='/'
           disabled={activeStep === 0}
           onClick={handleBack}
           className={classes.button}>
@@ -140,23 +147,11 @@ function App() {
           <Route
             exact
             path='/'
-            render={props => (
-              <ServiceRequests
-                {...props}
-              />
-            )}
+            render={props => <ServiceRequests {...props} />}
           />
-          {stepperNav}
-          <Route
-            exact
-            path='/enroll'
-            render={props => (
-              <Enroll
-                {...props}
-              />
-            )}
-          />
+          <Route path='/enroll' render={props => <Enroll {...props} />} />
 
+          {stepperNav}
         </Router>
       </ThemeProvider>
     </div>

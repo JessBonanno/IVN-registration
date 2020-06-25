@@ -1,3 +1,8 @@
+import momentTZ from 'moment-timezone';
+
+export const timeZones = momentTZ.tz.names();
+
+
 export const states = [
   'Alabama',
   'Alaska',
@@ -267,3 +272,5 @@ export const countries = [
   'Zambia',
   'Zimbabwe',
 ];
+
+
