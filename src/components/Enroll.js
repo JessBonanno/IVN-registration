@@ -1,7 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Grid } from '@material-ui/core';
+import {
+  TextField,
+  Grid,
+  IconButton,
+  Typography,
+  Button,
+} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import AlarmIcon from '@material-ui/icons/Alarm';
 
 // data for dropdowns
 import { states, countries, timeZones } from '../dropdownData';
@@ -13,7 +20,7 @@ const useStyles = makeStyles(theme => ({
       width: '25ch',
     },
   },
-  inputContainer: {
+  enrollSection: {
     width: '100%',
     margin: '1em auto',
   },
@@ -34,6 +41,9 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
+  enrollButtons: {
+    margin: '1em',
+  },
 }));
 export default function Enroll() {
   const classes = useStyles();
@@ -49,7 +59,7 @@ export default function Enroll() {
       <Grid item style={{ width: 470 }}>
         <form className={classes.root} noValidate autoComplete='off'>
           {/* inputs container */}
-          <Grid container direction='column' className={classes.inputContainer}>
+          <Grid container direction='column' className={classes.enrollSection}>
             {/* name container */}
 
             <Grid item justify='space-between' container>
@@ -177,21 +187,72 @@ export default function Enroll() {
                   )}
                 />{' '}
               </Grid>
-              <Grid item>
-                <TextField
-                  id='datetime-local'
-                  label='Best time to reach you'
-                  type='datetime-local'
-                  defaultValue='2017-05-24T10:30'
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
+              <Grid item container alignItems='center'>
+                <Grid item>
+                  <Typography variant='subtitle2'>
+                    When is the best time to reach you?
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <IconButton variant='contained'>
+                    <AlarmIcon color='primary' />
+                  </IconButton>
+                </Grid>{' '}
               </Grid>
             </Grid>
           </Grid>
         </form>
+      </Grid>
+      {/* immigration status */}
+      <Grid item>
+        <Grid
+          container
+          direction='column'
+          alignItems='center'
+          justify='center'
+          className={classes.enrollSection}>
+          <Grid item>
+            <Typography variant='subtitle1' style={{ margin: '1em 0' }}>
+              Are you an immigrant in the country you live in?
+            </Typography>
+          </Grid>
+          <Grid item container justify='center' alignItems='center'>
+            <Grid item className={classes.enrollButtons}>
+              <Button variant='contained' color='secondary'>
+                Yes
+              </Button>
+            </Grid>
+            <Grid item className={classes.enrollButtons}>
+              <Button variant='contained' color='secondary'>
+                No
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Typography
+              variant='subtitle1'
+              style={{
+                maxWidth: '70%',
+                margin: '1em auto',
+                textAlign: 'center',
+              }}>
+              If you answered no to the above question, Which country did you
+              emigrate FROM?
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Autocomplete
+              className={classes.dropdown}
+              id='combo-box-demo'
+              options={countries}
+              getOptionLabel={option => option}
+              style={{ width: 300 }}
+              renderInput={params => (
+                <TextField {...params} label='Country' variant='outlined' />
+              )}
+            />{' '}
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
