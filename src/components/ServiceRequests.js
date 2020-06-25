@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Typography, Grid, Avatar, Chip, Modal } from '@material-ui/core';
+import DoneIcon from '@material-ui/icons/Done';
 
-// local components 
-
-
-
+// local components
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -47,36 +45,40 @@ const services = [
   {
     name: 'Personal Protection Products',
     id: '1',
+    selected: false,
   },
   {
     name: 'Shopping Services',
-
     id: '2',
+    selected: false,
   },
   {
     name: 'Helpline',
-
     id: '3',
+    selected: false,
   },
   {
     name: 'Volunteer Support Services',
-
     id: '4',
+    selected: false,
   },
   {
     name: 'Money',
-
     id: '5',
+    selected: false,
   },
   {
     name: 'Mentor Job Seekers',
-
     id: '6',
+    selected: false,
   },
 ];
 
 export default function ServiceRequests() {
   const classes = useStyles();
+  const [selectedServices, setSelectedServices] = useState([]);
+
+  console.log(selectedServices);
 
   return (
     <div className={classes.paper}>
@@ -142,7 +144,7 @@ export default function ServiceRequests() {
           </Grid>
         </Grid>
       </Paper>
-      <Paper elevation={1}>
+      <Paper elevation={1} style={{ height: 600 }}>
         <Grid
           container
           direction='column'
