@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, useHistory, Link } from 'react-router-dom';
 import theme from './ui/Theme';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -14,6 +14,7 @@ import {
 
 // local components
 import ServiceRequests from './ServiceRequests';
+import Enroll from './Enroll';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const classes = useStyles();
+  const history = useHistory();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
@@ -118,6 +120,8 @@ function App() {
 
       <Grid item>
         <Button
+          component={Link}
+          to='/enroll'
           variant='contained'
           color='primary'
           onClick={handleNext}
@@ -143,6 +147,16 @@ function App() {
             )}
           />
           {stepperNav}
+          <Route
+            exact
+            path='/enroll'
+            render={props => (
+              <Enroll
+                {...props}
+              />
+            )}
+          />
+
         </Router>
       </ThemeProvider>
     </div>
