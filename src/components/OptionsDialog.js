@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,28 +7,36 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { useDispatch } from 'react-redux';
+import * as actionCreators from '../store/actions/services';
+import { useSelector } from 'react-redux';
+
+
+
 
 export default function OptionsDialog(props) {
+  const dispatch = useDispatch();
+  const addService = service => dispatch(actionCreators.addService(service));
+  const removeService = service => dispatch(actionCreators.removeService(service));
+  const addResponses = responses => dispatch(actionCreators(addResponses(responses)))
+  const servicesOffered = useSelector(state => {
+    return state.srv.servicesOffered;
+  });
+
+
+
 
   // ! add logic to save answers
-  
+
   const handleSubmit = () => {
-    props.setService({
-      ...props.service,
-      selected: true,
-    })
+    console.log(props.service);
+    addService(props.service);
     props.handleClose();
   }
 
   const handleCancel = () => {
-    props.setService({
-      ...props.service,
-      selected: false,
-    })
     props.handleClose();
-
   }
-  console.log(props.service);
   
   return (
     <div>
@@ -64,7 +72,7 @@ export default function OptionsDialog(props) {
           <Button onClick={handleCancel} color='primary'>
             Cancel
           </Button>
-          <Button onClick={handleSubmit} color='primary'>
+          <Button onClick={() => handleSubmit(props.service.id)} color='primary'>
             Submit
           </Button>
         </DialogActions>

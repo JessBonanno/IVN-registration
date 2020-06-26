@@ -165,19 +165,43 @@ const initialState = {
       ],
     },
   ],
-  selectedServices: []
+  selectedServices: [],
 };
 
- const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ADD_SERVICE: 
-    return state;
-    case actionTypes.REMOVE_SERVICE: 
-    return state;
+    case actionTypes.ADD_SELECTED_SERVICE:
+      const service = state.servicesOffered.filter(
+        service => service.id === action.payload.id
+      );
+      console.log('reducer service: ', service);
+      return {
+        ...state,
+        selectedServices: [...state.selectedServices, service],
+      };
+      // ! currently only updating the selected property 
+    case actionTypes.UPDATE_SERVICES:
+      return {
+        ...state,
+        servicesOffered: [
+          ...state.servicesOffered.map(service => {
+            if (service.id === action.payload) {
+              service.selected = true;
+            }
+            return service;
+          }),
+        ],
+      };
+    case actionTypes.REMOVE_SERVICE:
+      console.log('test');
+      return {
+        ...state,
+        selectedService: [state.selectedServices.filter(s => s.id !== action.payload.id)]
+      };
     case actionTypes.ADD_RESPONSES:
       return state;
-      default: 
+    default:
       return state;
   }
-}
+};
 export default reducer;

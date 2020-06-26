@@ -47,6 +47,8 @@ export default function ServiceRequests() {
   const services = useSelector(state => {
     return state.srv.servicesOffered;
   });
+  console.log(services);
+  
 
   // ! add logic for what are you selection
 

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Grid,
-  Typography,
-  Chip,
-} from '@material-ui/core';
+import { Grid, Typography, Chip } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
 import OptionsDialog from './OptionsDialog';
 
@@ -25,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   serviceButton: {
     width: 200,
     height: 40,
-    margin: '.5em 0',
+    margin: '1em .5em',
     boxShadow: '2px 4px 12px rgba(0, 0, 0, 0.60)',
   },
   serviceButtonSelected: {
@@ -34,17 +31,22 @@ const useStyles = makeStyles(theme => ({
     margin: '.5em 0',
     boxShadow: 'inset 2px 4px 12px rgba(0, 0, 0, 0.60)',
   },
-
 }));
 
 // ! need to add window to top funcion
 export default function ServiceOption(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [service, setService] = useState(props.service)
+  // const [service, setService] = useState(props.service);
+  // const selectedServices = useSelector(state => {
+  //   return state.srv.selectedServices;
+  // });
+  // const servicesOffered = useSelector(state => {
+  //   return state.srv.servicesOffered;
+  // });
 
 
-console.log(service);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -54,29 +56,38 @@ console.log(service);
   };
   return (
     <Grid container>
-      <Grid item>
-        <Chip
-          label={`${service.name}`}
-          clickable
-          onClick={handleClickOpen}
-          color='secondary'
-          className={service.selected ? classes.serviceButtonSelected : classes.serviceButton}
-        />
-      </Grid>
-      <OptionsDialog
+    {/* {servicesOffered.map(service => ( */}
+      <>
+        <Grid item>
+          <Chip
+            label={`${props.service.name}`}
+            clickable
+            onClick={handleClickOpen}
+            color='secondary'
+            //  ! refactor to use redux selected service array
+            className={
+              props.service.selected
+                ? classes.serviceButtonSelected
+                : classes.serviceButton
+            }
+          />
+        </Grid>
+         <OptionsDialog
           classes={{
             paper: classes.paper,
           }}
-          id={service.id}
+          id={props.service.id}
           keepMounted
           open={open}
           onClose={handleClose}
           value=''
-          service={service}
+          service={props.service}
           handleClose={handleClose}
           handleClickOpen={handleClickOpen}
-          setService={setService}
-        />
+          // setService={setService}
+        /> 
+      </>
+    {/* ))} */}
     </Grid>
   );
 }
