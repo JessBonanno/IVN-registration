@@ -37,15 +37,6 @@ const useStyles = makeStyles(theme => ({
 export default function ServiceOption(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  // const [service, setService] = useState(props.service);
-  // const selectedServices = useSelector(state => {
-  //   return state.srv.selectedServices;
-  // });
-  // const servicesOffered = useSelector(state => {
-  //   return state.srv.servicesOffered;
-  // });
-
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,7 +47,7 @@ export default function ServiceOption(props) {
   };
   return (
     <Grid container>
-    {/* {servicesOffered.map(service => ( */}
+      {/* {servicesOffered.map(service => ( */}
       <>
         <Grid item>
           <Chip
@@ -64,7 +55,6 @@ export default function ServiceOption(props) {
             clickable
             onClick={handleClickOpen}
             color='secondary'
-            //  ! refactor to use redux selected service array
             className={
               props.service.selected
                 ? classes.serviceButtonSelected
@@ -72,7 +62,7 @@ export default function ServiceOption(props) {
             }
           />
         </Grid>
-         <OptionsDialog
+        <OptionsDialog
           classes={{
             paper: classes.paper,
           }}
@@ -85,9 +75,9 @@ export default function ServiceOption(props) {
           handleClose={handleClose}
           handleClickOpen={handleClickOpen}
           // setService={setService}
-        /> 
+        />
       </>
-    {/* ))} */}
+      {/* ))} */}
     </Grid>
   );
 }
