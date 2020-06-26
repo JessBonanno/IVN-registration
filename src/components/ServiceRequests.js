@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid, Avatar, Chip, Modal } from '@material-ui/core';
-import DoneIcon from '@material-ui/icons/Done';
+import { Typography, Grid, Avatar } from '@material-ui/core';
+import ServiceOption from './ServiceOption';
 
 // local components
 
@@ -41,44 +41,173 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const services = [
-  {
-    name: 'Personal Protection Products',
-    id: '1',
-    selected: false,
-  },
-  {
-    name: 'Shopping Services',
-    id: '2',
-    selected: false,
-  },
-  {
-    name: 'Helpline',
-    id: '3',
-    selected: false,
-  },
-  {
-    name: 'Volunteer Support Services',
-    id: '4',
-    selected: false,
-  },
-  {
-    name: 'Money',
-    id: '5',
-    selected: false,
-  },
-  {
-    name: 'Mentor Job Seekers',
-    id: '6',
-    selected: false,
-  },
-];
-
 export default function ServiceRequests() {
   const classes = useStyles();
-  const [selectedServices, setSelectedServices] = useState([]);
+  const [services, setServices] = useState([
+    {
+      name: 'Personal Protection Products',
+      id: '1',
+      selected: false,
+      questions: [
+        {
+          name: 'question1',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question2',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question3',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question4',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question5',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+      ],
+    },
+    {
+      name: 'Shopping Services',
+      id: '2',
+      selected: false,
+      questions: [
+        {
+          name: 'question1',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question2',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question3',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question4',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question5',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+      ],
+    },
+    {
+      name: 'Helpline',
+      id: '3',
+      selected: false,
+      questions: [
+        {
+          name: 'question1',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question2',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question3',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question4',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question5',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+      ],
+    },
+    {
+      name: 'Volunteer Support Services',
+      id: '4',
+      selected: false,
+      questions: [
+        {
+          name: 'question1',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question2',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question3',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question4',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question5',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+      ],
+    },
+    {
+      name: 'Money',
+      id: '5',
+      selected: false,
+      questions: [
+        {
+          name: 'question1',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question2',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question3',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question4',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question5',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+      ],
+    },
+    {
+      name: 'Mentor Job Seekers',
+      id: '6',
+      selected: false,
+      questions: [
+        {
+          name: 'question1',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question2',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question3',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question4',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+        {
+          name: 'question5',
+          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+        },
+      ],
+    },
+  ]);
 
-  console.log(selectedServices);
 
   return (
     <div className={classes.paper}>
@@ -144,7 +273,7 @@ export default function ServiceRequests() {
           </Grid>
         </Grid>
       </Paper>
-      <Paper elevation={1} style={{ height: 600 }}>
+      <Paper elevation={1}>
         <Grid
           container
           direction='column'
@@ -160,14 +289,10 @@ export default function ServiceRequests() {
             container
             justify='space-evenly'
             style={{ margin: '2em 0' }}>
+            {/* refactor this into its own component with the menu checkbox etc */}
             {services.map(service => (
               <Grid item>
-                <Chip
-                  label={`${service.name}`}
-                  clickable
-                  color='secondary'
-                  className={classes.serviceButton}
-                />
+                <ServiceOption service={service} setServices={setServices}/>
               </Grid>
             ))}
           </Grid>
