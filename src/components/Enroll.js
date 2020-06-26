@@ -48,6 +48,8 @@ const useStyles = makeStyles(theme => ({
 export default function Enroll() {
   const classes = useStyles();
 
+  // ! add logic to store user entries
+
   return (
     // main container for page
     <Grid

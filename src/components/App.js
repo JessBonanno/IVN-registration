@@ -45,6 +45,7 @@ function App() {
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
+  // get steps and get step content populate the stepper and associated text
   function getSteps() {
     return ['Service Requests', 'Personal Information', 'Verification'];
   }

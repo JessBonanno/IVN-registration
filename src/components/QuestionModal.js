@@ -1,1 +1,0 @@
-// all questions on 1 modal

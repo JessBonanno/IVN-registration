@@ -41,7 +41,6 @@ const useStyles = makeStyles(theme => ({
 export default function ServiceOption(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('Dione');
   const [service, setService] = useState(props.service)
 
 
@@ -72,7 +71,7 @@ console.log(service);
           keepMounted
           open={open}
           onClose={handleClose}
-          value={value}
+          value=''
           service={service}
           handleClose={handleClose}
           handleClickOpen={handleClickOpen}
