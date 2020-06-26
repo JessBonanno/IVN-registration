@@ -49,7 +49,7 @@ export default function OptionsDialog(props) {
         </DialogTitle>
         <DialogContent style={{ padding: '0 10em' }}>
           {props.service.questions.map(q => {
-            let answers = q.answers;
+            let choices = q.choices;
             return (
               <>
                 <DialogContentText style={{ marginTop: '1em' }}>
@@ -57,11 +57,11 @@ export default function OptionsDialog(props) {
                 </DialogContentText>
                 <Autocomplete
                   id='combo-box-demo'
-                  options={answers}
+                  options={choices}
                   getOptionLabel={option => option}
                   style={{ width: 300 }}
                   renderInput={params => (
-                    <TextField {...params} label='Answers' variant='outlined' />
+                    <TextField {...params} label='Choices' variant='outlined' />
                   )}
                 />{' '}
               </>

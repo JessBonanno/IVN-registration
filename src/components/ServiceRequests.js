@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid, Avatar } from '@material-ui/core';
+import { Typography, Grid, Avatar, IconButton } from '@material-ui/core';
 import ServiceOption from './ServiceOption';
 import { useSelector } from 'react-redux';
 
@@ -47,10 +47,14 @@ export default function ServiceRequests() {
   const services = useSelector(state => {
     return state.srv.servicesOffered;
   });
+  const users = useSelector(state => {
+    return state.srv.users;
+  });
   console.log(services);
-  
 
-  // ! add logic for what are you selection
+  const [selectedUser, setSelectedUser] = useState();
+  console.log(selectedUser);
+
 
   return (
     <div className={classes.paper}>
@@ -69,50 +73,24 @@ export default function ServiceRequests() {
             container
             justify='space-evenly'
             style={{ margin: '2em 0' }}>
-            <Grid
-              item
-              container
-              direction='column'
-              //   justify='center'
-              alignItems='center'
-              className={classes.avatarContainer}>
-              <Grid item style={{ margin: '1em' }}>
-                <Avatar className={classes.large}>I</Avatar>
+            {users.map(user => (
+              <Grid
+                item
+                container
+                direction='column'
+                //   justify='center'
+                alignItems='center'
+                className={classes.avatarContainer}>
+                <Grid item style={{ margin: '1em' }}>
+                  <IconButton onClick={()=> setSelectedUser(user)}>
+                    <Avatar className={ selectedUser === user ? classes.large : undefined}></Avatar>
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <Typography variant='caption1'>{user}</Typography>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Typography variant='caption1'>Individual</Typography>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              container
-              direction='column'
-              //   justify='center'
-              alignItems='center'
-              className={classes.avatarContainer}>
-              <Grid item style={{ margin: '1em' }}>
-                <Avatar className={classes.large}>O</Avatar>
-              </Grid>
-              <Grid item>
-                <Typography variant='caption1'>
-                  Social Service Organization
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              container
-              direction='column'
-              //   justify='center'
-              alignItems='center'
-              className={classes.avatarContainer}>
-              <Grid item style={{ margin: '1em' }}>
-                <Avatar className={classes.large}>B</Avatar>
-              </Grid>
-              <Grid item>
-                <Typography variant='caption1'>Business</Typography>
-              </Grid>
-            </Grid>
+            ))}
           </Grid>
         </Grid>
       </Paper>
@@ -135,7 +113,7 @@ export default function ServiceRequests() {
             {/* refactor this into its own component with the menu checkbox etc */}
             {services.map(service => (
               <Grid item>
-                <ServiceOption service={service}/>
+                <ServiceOption service={service} />
               </Grid>
             ))}
           </Grid>

@@ -1,6 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
+  users: ['Individual', 'Social Service Organization', 'Business'],
+
   servicesOffered: [
     {
       name: 'Personal Protection Products',
@@ -9,23 +11,23 @@ const initialState = {
       questions: [
         {
           name: 'question1',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question2',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question3',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question4',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question5',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
       ],
     },
@@ -36,23 +38,23 @@ const initialState = {
       questions: [
         {
           name: 'question1',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question2',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question3',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question4',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question5',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
       ],
     },
@@ -63,23 +65,23 @@ const initialState = {
       questions: [
         {
           name: 'question1',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question2',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question3',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question4',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question5',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
       ],
     },
@@ -90,23 +92,23 @@ const initialState = {
       questions: [
         {
           name: 'question1',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question2',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question3',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question4',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question5',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
       ],
     },
@@ -117,23 +119,23 @@ const initialState = {
       questions: [
         {
           name: 'question1',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question2',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question3',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question4',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question5',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
       ],
     },
@@ -144,23 +146,23 @@ const initialState = {
       questions: [
         {
           name: 'question1',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question2',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question3',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question4',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
         {
           name: 'question5',
-          answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5'],
+          choices: ['choice1', 'choice2', 'choice3', 'choice4', 'choice5'],
         },
       ],
     },
@@ -179,7 +181,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         selectedServices: [...state.selectedServices, service],
       };
-      // ! currently only updating the selected property 
+    // ! currently only updating the selected property
     case actionTypes.UPDATE_SERVICES:
       return {
         ...state,
@@ -196,7 +198,9 @@ const reducer = (state = initialState, action) => {
       console.log('test');
       return {
         ...state,
-        selectedService: [state.selectedServices.filter(s => s.id !== action.payload.id)]
+        selectedService: [
+          state.selectedServices.filter(s => s.id !== action.payload.id),
+        ],
       };
     case actionTypes.ADD_RESPONSES:
       return state;
