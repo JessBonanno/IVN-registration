@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Typography, Grid, Avatar, IconButton } from '@material-ui/core';
 import ServiceOption from './ServiceOption';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actionCreators from '../store/actions/services';
 
+import { useHistory } from 'react-router-dom';
 // local components
 
 const useStyles = makeStyles(theme => ({
@@ -43,6 +45,19 @@ const useStyles = makeStyles(theme => ({
 
 export default function ServiceRequests() {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const updateCurrentPath = path =>
+    dispatch(actionCreators.updateCurrentPath(path));
+  const currentPath = useSelector(state => {
+    return state.srv.currentPath;
+  });
+
+  useEffect(() => {
+    updateCurrentPath(history.location.pathname);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history.location.path]);
+
 
   const services = useSelector(state => {
     return state.srv.servicesOffered;
@@ -50,11 +65,8 @@ export default function ServiceRequests() {
   const users = useSelector(state => {
     return state.srv.users;
   });
-  console.log(services);
 
   const [selectedUser, setSelectedUser] = useState();
-  console.log(selectedUser);
-
 
   return (
     <div className={classes.paper}>
@@ -82,8 +94,11 @@ export default function ServiceRequests() {
                 alignItems='center'
                 className={classes.avatarContainer}>
                 <Grid item style={{ margin: '1em' }}>
-                  <IconButton onClick={()=> setSelectedUser(user)}>
-                    <Avatar className={ selectedUser === user ? classes.large : undefined}></Avatar>
+                  <IconButton onClick={() => setSelectedUser(user)}>
+                    <Avatar
+                      className={
+                        selectedUser === user ? classes.large : undefined
+                      }></Avatar>
                   </IconButton>
                 </Grid>
                 <Grid item>

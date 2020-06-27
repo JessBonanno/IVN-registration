@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
@@ -9,6 +9,9 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AlarmIcon from '@material-ui/icons/Alarm';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actionCreators from '../store/actions/services';
+import { useHistory } from 'react-router-dom';
 
 // data for dropdowns
 import { states, countries, timeZones } from '../dropdownData';
@@ -47,7 +50,20 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function Enroll() {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const updateCurrentPath = path =>
+    dispatch(actionCreators.updateCurrentPath(path));
+  const currentPath = useSelector(state => {
+    return state.srv.currentPath;
+  });
 
+  useEffect(() => {
+    updateCurrentPath(history.location.pathname);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history.location.path]);
+
+  console.log(history);
   // ! add logic to store user entries
 
   return (

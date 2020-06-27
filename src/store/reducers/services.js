@@ -1,8 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
+  currentPath: '',
   users: ['Individual', 'Social Service Organization', 'Business'],
-
+  userChoices: [],
   servicesOffered: [
     {
       name: 'Personal Protection Products',
@@ -172,6 +173,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.UPDATE_CURRENT_PATH: 
+    return {
+      ...state,
+      currentPath: action.payload,
+    };
     case actionTypes.ADD_SELECTED_SERVICE:
       const service = state.servicesOffered.filter(
         service => service.id === action.payload.id
@@ -204,6 +210,14 @@ const reducer = (state = initialState, action) => {
       };
     case actionTypes.ADD_RESPONSES:
       return state;
+      case actionTypes.ADD_USER_CHOICES:
+        return {
+          ...state,
+          userChoices: [
+            ...state.userChoices,
+            action.payload
+          ]
+        }
     default:
       return state;
   }

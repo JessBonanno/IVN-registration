@@ -1,11 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
-import {
-  BrowserRouter as Router,
-  Route,
-  useHistory,
-  Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import theme from './ui/Theme';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -16,10 +11,12 @@ import {
   Step,
   Stepper,
 } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 
 // local components
 import ServiceRequests from './ServiceRequests';
 import Enroll from './Enroll';
+import Review from './Review';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,10 +37,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
+  const currentPath = useSelector(state => {
+    return state.srv.currentPath;
+  });
+
+  console.log(currentPath);
+
   const classes = useStyles();
-  const history = useHistory();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  // const path = history.location.pathname;
 
   // get steps and get step content populate the stepper and associated text
   function getSteps() {
@@ -118,7 +121,7 @@ function App() {
       <Grid item>
         <Button
           component={Link}
-          to='/'
+          to={currentPath === '/review' ? '/enroll' : '/'}
           disabled={activeStep === 0}
           onClick={handleBack}
           className={classes.button}>
@@ -129,7 +132,7 @@ function App() {
       <Grid item>
         <Button
           component={Link}
-          to='/enroll'
+          to={currentPath === '/' ? '/enroll' :  '/review'}
           variant='contained'
           color='primary'
           onClick={handleNext}
@@ -150,6 +153,8 @@ function App() {
             path='/'
             render={props => <ServiceRequests {...props} />}
           />
+          <Route path='/enroll' render={props => <Enroll {...props} />} />
+          <Route exact path='/review' render={props => <Review {...props} />} />
           <Route path='/enroll' render={props => <Enroll {...props} />} />
 
           {stepperNav}
