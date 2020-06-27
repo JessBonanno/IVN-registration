@@ -154,7 +154,6 @@ function App() {
           />
           <Route path='/enroll' render={props => <Enroll {...props} />} />
           <Route exact path='/review' render={props => <Review {...props} />} />
-          <Route path='/enroll' render={props => <Enroll {...props} />} />
 
           {stepperNav}
         </Router>

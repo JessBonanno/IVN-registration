@@ -7,3 +7,9 @@ export const addUserChoices = choices => {
   };
 };
 
+export const addUserInformation = info => {
+  return {
+    type: actionTypes.ADD_USER_INFORMATION,
+    payload: info,
+  };
+};

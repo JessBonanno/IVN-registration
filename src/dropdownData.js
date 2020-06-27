@@ -69,6 +69,7 @@ export const countries = [
   'Afghanistan',
   'Albania',
   'Algeria',
+  'America'
   'Andorra',
   'Angola',
   'Anguilla',
@@ -263,6 +264,7 @@ export const countries = [
   'Ukraine',
   'United Arab Emirates',
   'United Kingdom',
+  'Unites States',
   'Uruguay',
   'Uzbekistan',
   'Venezuela',

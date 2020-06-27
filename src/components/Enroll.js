@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
@@ -57,14 +57,42 @@ export default function Enroll() {
   const currentPath = useSelector(state => {
     return state.srv.currentPath;
   });
+  const [userInfo, setUserInfo] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    country: '',
+    timezone: '',
+    availability: '',
+    immigrant: false,
+    fromCountry: '',
+  });
+  const [dropdownValues, setDropdownValues] = useState({
+    fromCountry: '',
+    state: '',
+    country: '',
+    timezone: '',
+  });
 
   useEffect(() => {
     updateCurrentPath(history.location.pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history.location.path]);
 
-  // ! add logic to store user entries
+  const handleChanges = e => {
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
 
+  const handleValueChanges = (e, value) => {};
+  console.log(userInfo);
   return (
     // main container for page
     <Grid
@@ -85,8 +113,11 @@ export default function Enroll() {
                   className={classes.input}
                   variant='outlined'
                   id='firstname'
+                  name='firstname'
+                  value={userInfo.firstname}
                   type='text'
                   label='First Name'
+                  onChange={handleChanges}
                 />
               </Grid>
               <Grid item>
@@ -94,8 +125,11 @@ export default function Enroll() {
                   className={classes.input}
                   variant='outlined'
                   id='lastname'
+                  name='lastname'
+                  value={userInfo.lastname}
                   type='text'
                   label='Last Name'
+                  onChange={handleChanges}
                 />
               </Grid>
             </Grid>
@@ -108,8 +142,11 @@ export default function Enroll() {
                   className={classes.input}
                   variant='outlined'
                   id='email'
+                  name='email'
+                  value={userInfo.email}
                   type='email'
                   label='Email'
+                  onChange={handleChanges}
                 />
               </Grid>
               <Grid item>
@@ -117,8 +154,11 @@ export default function Enroll() {
                   className={classes.input}
                   variant='outlined'
                   id='phone'
+                  name='phone'
+                  value={userInfo.phone}
                   type='tel'
                   label='Phone Number'
+                  onChange={handleChanges}
                 />
               </Grid>
             </Grid>
@@ -131,8 +171,11 @@ export default function Enroll() {
                 className={classes.input}
                 variant='outlined'
                 id='address'
+                name='address'
+                value={userInfo.address}
                 type='text'
                 label='Address'
+                onChange={handleChanges}
               />
             </Grid>
 
@@ -144,19 +187,34 @@ export default function Enroll() {
                   className={classes.input}
                   variant='outlined'
                   id='city'
+                  name='city'
+                  value={userInfo.city}
                   type='text'
                   label='City'
+                  onChange={handleChanges}
                 />
               </Grid>
               <Grid item>
                 <Autocomplete
                   className={classes.dropdown}
-                  id='combo-box-demo'
+                  id='state'
                   options={states}
                   getOptionLabel={option => option}
                   style={{ width: 300 }}
+                  value={userInfo.state}
+                  onChange={(event, newValue) => {
+                    setUserInfo({
+                      ...userInfo,
+                      state: newValue,
+                    });
+                  }}
                   renderInput={params => (
-                    <TextField {...params} label='State' variant='outlined' />
+                    <TextField
+                      {...params}
+                      label='State'
+                      variant='outlined'
+                      name='state'
+                    />
                   )}
                 />
               </Grid>
@@ -167,21 +225,36 @@ export default function Enroll() {
                   className={classes.input}
                   variant='outlined'
                   id='zip'
+                  name='zip'
+                  value={userInfo.zip}
                   type='postal'
                   label='Zip'
+                  onChange={handleChanges}
                 />
               </Grid>
               <Grid item>
                 <Autocomplete
                   className={classes.dropdown}
-                  id='combo-box-demo'
+                  id='country'
                   options={countries}
                   getOptionLabel={option => option}
                   style={{ width: 300 }}
+                  value={userInfo.country}
+                  onChange={(event, newValue) => {
+                    setUserInfo({
+                      ...userInfo,
+                      country: newValue,
+                    });
+                  }}
                   renderInput={params => (
-                    <TextField {...params} label='Country' variant='outlined' />
+                    <TextField
+                      {...params}
+                      label='Country'
+                      variant='outlined'
+                      name='country'
+                    />
                   )}
-                />{' '}
+                />
               </Grid>
             </Grid>
 
@@ -191,18 +264,26 @@ export default function Enroll() {
               <Grid item>
                 <Autocomplete
                   className={classes.dropdown}
-                  id='combo-box-demo'
+                  id='timezone'
                   options={timeZones}
                   getOptionLabel={option => option}
                   style={{ width: 300 }}
+                  value={userInfo.timezone}
+                  onChange={(event, newValue) => {
+                    setUserInfo({
+                      ...userInfo,
+                      timezone: newValue,
+                    });
+                  }}
                   renderInput={params => (
                     <TextField
                       {...params}
                       label='Time Zone'
                       variant='outlined'
+                      name='timezone'
                     />
                   )}
-                />{' '}
+                />
               </Grid>
               <Grid item container alignItems='center'>
                 <Grid item>
@@ -235,12 +316,28 @@ export default function Enroll() {
           </Grid>
           <Grid item container justify='center' alignItems='center'>
             <Grid item className={classes.enrollButtons}>
-              <Button variant='contained' color='secondary'>
+              <Button
+                variant='contained'
+                color='secondary'
+                onClick={() =>
+                  setUserInfo({
+                    ...userInfo,
+                    immigrant: true,
+                  })
+                }>
                 Yes
               </Button>
             </Grid>
             <Grid item className={classes.enrollButtons}>
-              <Button variant='contained' color='secondary'>
+              <Button
+                variant='contained'
+                color='secondary'
+                onClick={() =>
+                  setUserInfo({
+                    ...userInfo,
+                    immigrant: false,
+                  })
+                }>
                 No
               </Button>
             </Grid>
@@ -257,18 +354,32 @@ export default function Enroll() {
               emigrate FROM?
             </Typography>
           </Grid>
-          <Grid item>
-            <Autocomplete
-              className={classes.dropdown}
-              id='combo-box-demo'
-              options={countries}
-              getOptionLabel={option => option}
-              style={{ width: 300 }}
-              renderInput={params => (
-                <TextField {...params} label='Country' variant='outlined' />
-              )}
-            />{' '}
-          </Grid>
+          <form>
+            <Grid item>
+              <Autocomplete
+                className={classes.dropdown}
+                id='fromCountry'
+                options={countries}
+                getOptionLabel={option => option}
+                style={{ width: 300 }}
+                value={userInfo.fromCountry}
+                onChange={(event, newValue) => {
+                  setUserInfo({
+                    ...userInfo,
+                    fromCountry: newValue,
+                  });
+                }}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    label='Country'
+                    variant='outlined'
+                    name='fromCountry'
+                  />
+                )}
+              />
+            </Grid>
+          </form>
         </Grid>
       </Grid>
     </Grid>
