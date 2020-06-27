@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import theme from './ui/Theme';
@@ -11,7 +11,7 @@ import {
   Step,
   Stepper,
 } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // local components
 import ServiceRequests from './ServiceRequests';
@@ -38,7 +38,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
-  const dispatch = useDispatch();
+  // set window to top on render 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const currentPath = useSelector(state => {
     return state.srv.currentPath;
   });
@@ -74,9 +77,6 @@ function App() {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleReturnHome = () => {
-    setActiveStep(0);
-  };
 
   const stepper = (
     <div className={classes.root}>

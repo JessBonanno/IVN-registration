@@ -1,22 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AlarmIcon from '@material-ui/icons/Alarm';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Button } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../store/actions/index';
-
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles(theme => ({
@@ -29,13 +26,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SimpleDialog(props) {
-    const dispatch = useDispatch();
-    const addUserAvailability = info =>
+  // set window to top on render
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const dispatch = useDispatch();
+  const addUserAvailability = info =>
     dispatch(actionCreators.addUserAvailability(info));
   const userAvailability = useSelector(state => {
     return state.usr.userAvailability;
   });
-
 
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
@@ -56,7 +56,6 @@ function SimpleDialog(props) {
     setChoices({ ...choices, [event.target.name]: event.target.checked });
   };
 
-
   const {
     Monday,
     Tuesday,
@@ -72,10 +71,9 @@ function SimpleDialog(props) {
 
   const handleClose = () => {
     onClose(selectedValue);
-    addUserAvailability(choices)
+    addUserAvailability(choices);
   };
-console.log(userAvailability);
-
+  console.log(userAvailability);
 
   return (
     <Dialog
@@ -200,8 +198,10 @@ console.log(userAvailability);
           </FormGroup>
           {/* <FormHelperText>Be careful</FormHelperText> */}
         </FormControl>{' '}
-        <Grid item align='center' style={{marginBottom: '1em'}}>
-            <Button variant='contained' color='primary' onClick={handleClose}>Confirm</Button>
+        <Grid item align='center' style={{ marginBottom: '1em' }}>
+          <Button variant='contained' color='primary' onClick={handleClose}>
+            Confirm
+          </Button>
         </Grid>
       </Grid>
     </Dialog>
@@ -231,7 +231,10 @@ export default function SimpleDialogDemo() {
     <div>
       {/* <Typography variant='subtitle1'>Selected: {selectedValue}</Typography> */}
       <br />
-      <IconButton variant='contained' onClick={handleClickOpen} alt='time-day-picker'>
+      <IconButton
+        variant='contained'
+        onClick={handleClickOpen}
+        alt='time-day-picker'>
         <AlarmIcon color='primary' />
       </IconButton>{' '}
       <SimpleDialog

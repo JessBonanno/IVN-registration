@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as actionCreators from '../store/actions/index';
 
 export default function OptionsDialog(props) {
+  // set window to top on render
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const dispatch = useDispatch();
   const [selections, setSelections] = useState();
   const addService = service => dispatch(actionCreators.addService(service));
-  const servicesOffered = useSelector(state => {
-    return state.srv.servicesOffered;
-  });
   const addUserChoices = choices =>
     dispatch(actionCreators.addUserChoices(choices));
 

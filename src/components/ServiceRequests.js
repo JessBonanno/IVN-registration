@@ -49,9 +49,7 @@ export default function ServiceRequests() {
   const dispatch = useDispatch();
   const updateCurrentPath = path =>
     dispatch(actionCreators.updateCurrentPath(path));
-  const currentPath = useSelector(state => {
-    return state.srv.currentPath;
-  });
+ 
 
   useEffect(() => {
     updateCurrentPath(history.location.pathname);

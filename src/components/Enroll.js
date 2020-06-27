@@ -3,12 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
   Grid,
-  IconButton,
   Typography,
   Button,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import AlarmIcon from '@material-ui/icons/Alarm';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../store/actions/index';
 import { useHistory } from 'react-router-dom';
@@ -52,6 +50,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 export default function Enroll() {
+    // set window to top on render 
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -62,9 +64,6 @@ export default function Enroll() {
   });
   const addUserInformation = info =>
     dispatch(actionCreators.addUserInformation(info));
-  const currentPath = useSelector(state => {
-    return state.srv.currentPath;
-  });
   const [userInfo, setUserInfo] = useState({
     firstname: '',
     lastname: '',
@@ -111,7 +110,6 @@ export default function Enroll() {
     });
   };
 
-  const handleValueChanges = (e, value) => {};
   console.log(userInfo);
   return (
     // main container for page

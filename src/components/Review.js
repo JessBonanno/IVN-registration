@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../store/actions/index';
 import { useHistory } from 'react-router-dom';
 
-// local comopnents
+// local components
 import AvailabilityDialog from './AvailabilityDialog';
 
 // data for dropdowns
@@ -45,6 +45,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 export default function Enroll() {
+      // set window to top on render 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -52,9 +56,6 @@ export default function Enroll() {
     dispatch(actionCreators.updateCurrentPath(path));
   const addUserInformation = info =>
     dispatch(actionCreators.addUserInformation(info));
-  const currentPath = useSelector(state => {
-    return state.srv.currentPath;
-  });
   const savedInformation = useSelector(state => {
     return state.usr.userInformation;
   });
@@ -72,7 +73,6 @@ export default function Enroll() {
     });
   };
 
-  const handleValueChanges = (e, value) => {};
   console.log(userInfo);
   return (
     // main container for page
@@ -379,7 +379,7 @@ export default function Enroll() {
         </Grid>
       </Grid>
       <Grid item>
-        <Grid container className={classes.selectionsContianer}>
+        <Grid container className={classes.selectionsContainer}>
             {/* need table here with selected choices view */}
         </Grid>
       </Grid>
