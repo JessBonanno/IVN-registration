@@ -54,6 +54,7 @@ export default function Enroll() {
   const dispatch = useDispatch();
   const updateCurrentPath = path =>
     dispatch(actionCreators.updateCurrentPath(path));
+  const addUserInformation = info => dispatch(actionCreators.addUserInformation(info));
   const currentPath = useSelector(state => {
     return state.srv.currentPath;
   });
@@ -378,6 +379,9 @@ export default function Enroll() {
                   />
                 )}
               />
+            </Grid>
+            <Grid item align='center'>
+              <Button variant='contained' onClick={() => addUserInformation(userInfo)}>Save Information</Button>
             </Grid>
           </form>
         </Grid>

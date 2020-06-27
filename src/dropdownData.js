@@ -69,7 +69,7 @@ export const countries = [
   'Afghanistan',
   'Albania',
   'Algeria',
-  'America'
+  'America',
   'Andorra',
   'Angola',
   'Anguilla',

@@ -37,9 +37,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
+  const dispatch = useDispatch();
   const currentPath = useSelector(state => {
     return state.srv.currentPath;
   });
+
+  
 
 
   const classes = useStyles();

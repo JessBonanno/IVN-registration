@@ -6,4 +6,5 @@ export {
 } from './services';
 export {
     addUserChoices,
+    addUserInformation,
 } from './user';
