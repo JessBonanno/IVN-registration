@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   users: ['Individual', 'Social Service Organization', 'Business'],
+  userAvailability: {},
   userInformation: {},
   userChoices: [],
 };
@@ -17,7 +18,12 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userInformation: action.payload,
+      };    case actionTypes.ADD_USER_AVAILABILITY:
+      return {
+        ...state,
+        userAvailability: action.payload,
       };
+
     default:
       return state;
   }

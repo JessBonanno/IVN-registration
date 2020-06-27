@@ -13,3 +13,10 @@ export const addUserInformation = info => {
     payload: info,
   };
 };
+
+export const addUserAvailability = info => {
+    return {
+        type: actionTypes.ADD_USER_AVAILABILITY,
+        payload: info,
+    }
+}

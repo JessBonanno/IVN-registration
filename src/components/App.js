@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ServiceRequests from './ServiceRequests';
 import Enroll from './Enroll';
 import Review from './Review';
+import Submitted from './Submitted';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,9 +43,6 @@ function App() {
     return state.srv.currentPath;
   });
 
-  
-
-
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -64,7 +62,7 @@ function App() {
       case 2:
         return 'Please verify the following information before you submit this form';
       default:
-        return 'Unknown step';
+        return '';
     }
   }
 
@@ -97,12 +95,9 @@ function App() {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>
+            {/* <Typography className={classes.instructions}>
               Thank you, we have received your submission!
-            </Typography>
-            <Button onClick={handleReturnHome} className={classes.button}>
-              Return to Home
-            </Button>
+            </Typography> */}
           </div>
         ) : (
           <div>
@@ -114,6 +109,8 @@ function App() {
       </div>
     </div>
   );
+
+  console.log(currentPath);
 
   const stepperNav = (
     <Grid
@@ -130,11 +127,16 @@ function App() {
           Back
         </Button>
       </Grid>
-
       <Grid item>
         <Button
           component={Link}
-          to={currentPath === '/' ? '/enroll' :  '/review'}
+          to={
+            currentPath === '/'
+              ? '/enroll'
+              : currentPath === '/enroll'
+              ? '/review'
+              : currentPath === '/review' && '/finished'
+          }
           variant='contained'
           color='primary'
           onClick={handleNext}
@@ -157,8 +159,12 @@ function App() {
           />
           <Route path='/enroll' render={props => <Enroll {...props} />} />
           <Route exact path='/review' render={props => <Review {...props} />} />
-
-          {stepperNav}
+          <Route
+            exact
+            path='/finished'
+            render={props => <Submitted {...props} />}
+          />
+          {currentPath !== '/finished' && stepperNav}
         </Router>
       </ThemeProvider>
     </div>

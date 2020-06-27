@@ -13,6 +13,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../store/actions/index';
 import { useHistory } from 'react-router-dom';
 
+// local components
+import AvailabilityDialog from './AvailabilityDialog';
+
 // data for dropdowns
 import { states, countries, timeZones } from '../dropdownData';
 
@@ -54,7 +57,13 @@ export default function Enroll() {
   const dispatch = useDispatch();
   const updateCurrentPath = path =>
     dispatch(actionCreators.updateCurrentPath(path));
-  const addUserInformation = info => dispatch(actionCreators.addUserInformation(info));
+  const addUserAvailability = info =>
+    dispatch(actionCreators.addUserAvailability(info));
+  const userAvailability = useSelector(state => {
+    return state.usr.userAvailability;
+  });
+  const addUserInformation = info =>
+    dispatch(actionCreators.addUserInformation(info));
   const currentPath = useSelector(state => {
     return state.srv.currentPath;
   });
@@ -73,12 +82,30 @@ export default function Enroll() {
     immigrant: false,
     fromCountry: '',
   });
-  const [dropdownValues, setDropdownValues] = useState({
-    fromCountry: '',
-    state: '',
-    country: '',
-    timezone: '',
-  });
+
+  const handleSubmit = () => {
+    setUserInfo({
+      ...userInfo,
+      availability: userAvailability,
+    });
+
+    addUserInformation(userInfo);
+    setUserInfo({
+      firstname: '',
+      lastname: '',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      state: '',
+      zip: '',
+      country: '',
+      timezone: '',
+      availability: '',
+      immigrant: false,
+      fromCountry: '',
+    });
+  };
 
   useEffect(() => {
     updateCurrentPath(history.location.pathname);
@@ -89,6 +116,7 @@ export default function Enroll() {
     setUserInfo({
       ...userInfo,
       [e.target.name]: e.target.value,
+      availability: userAvailability,
     });
   };
 
@@ -292,10 +320,11 @@ export default function Enroll() {
                     When is the best time to reach you?
                   </Typography>
                 </Grid>
-                <Grid item>
-                  <IconButton variant='contained'>
+                <Grid item style={{ marginBottom: '1.4em' }}>
+                  {/* <IconButton variant='contained'>
                     <AlarmIcon color='primary' />
-                  </IconButton>
+                  </IconButton> */}
+                  <AvailabilityDialog />
                 </Grid>{' '}
               </Grid>
             </Grid>
@@ -381,7 +410,13 @@ export default function Enroll() {
               />
             </Grid>
             <Grid item align='center'>
-              <Button variant='contained' onClick={() => addUserInformation(userInfo)}>Save Information</Button>
+              <Button
+                variant='contained'
+                color='primary'
+                style={{ margin: '1em' }}
+                onClick={handleSubmit}>
+                Save Information
+              </Button>
             </Grid>
           </form>
         </Grid>

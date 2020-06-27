@@ -5,6 +5,7 @@ export {
     removeService,
 } from './services';
 export {
+    addUserAvailability,
     addUserChoices,
     addUserInformation,
 } from './user';
