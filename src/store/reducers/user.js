@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  users: ['Individual', 'Social Service Organization', 'Business'],
+  users: ['Help Seeker', 'Volunteer', 'Partner'],
   userAvailability: {},
   userInformation: {},
   userChoices: [],

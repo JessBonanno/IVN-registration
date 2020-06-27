@@ -44,18 +44,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ServiceRequests() {
+    // set window to top on render 
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const updateCurrentPath = path =>
     dispatch(actionCreators.updateCurrentPath(path));
- 
 
   useEffect(() => {
     updateCurrentPath(history.location.pathname);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history.location.path]);
-
 
   const services = useSelector(state => {
     return state.srv.servicesOffered;
@@ -85,6 +87,7 @@ export default function ServiceRequests() {
             style={{ margin: '2em 0' }}>
             {users.map(user => (
               <Grid
+                key={user}
                 item
                 container
                 direction='column'
@@ -100,7 +103,7 @@ export default function ServiceRequests() {
                   </IconButton>
                 </Grid>
                 <Grid item>
-                  <Typography variant='caption1'>{user}</Typography>
+                  <Typography variant='subtitle2' style={{textAlign: 'center'}}>{user}</Typography>
                 </Grid>
               </Grid>
             ))}
@@ -125,7 +128,7 @@ export default function ServiceRequests() {
             style={{ margin: '2em 0' }}>
             {/* refactor this into its own component with the menu checkbox etc */}
             {services.map(service => (
-              <Grid item>
+              <Grid item key={service}>
                 <ServiceOption service={service} />
               </Grid>
             ))}

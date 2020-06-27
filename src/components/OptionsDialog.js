@@ -61,6 +61,7 @@ export default function OptionsDialog(props) {
             return (
               <>
                 <DialogContentText
+                key={q}
                   style={{
                     marginTop: '1em',
                     fontSize: '1.3rem',
@@ -77,7 +78,7 @@ export default function OptionsDialog(props) {
                   name={q.name}>
                   <MenuItem value='None'>None</MenuItem>
                   {choices.map(choice => {
-                    return <MenuItem value={choice}>{choice}</MenuItem>;
+                    return <MenuItem key={choice} value={choice}>{choice}</MenuItem>;
                   })}
                 </Select>
 

@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom';
 import AvailabilityDialog from './AvailabilityDialog';
 
 // data for dropdowns
-import { states, countries, timeZones } from '../dropdownData';
+import { states, countries, timeZones } from '../data/dropdownData';
 
 const useStyles = makeStyles(theme => ({
   root: {

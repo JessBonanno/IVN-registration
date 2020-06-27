@@ -5,6 +5,10 @@ import * as actionCreators from '../store/actions/index';
 import { Grid, Typography, Button } from '@material-ui/core';
 
 export default function Submitted() {
+      // set window to top on render 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const history = useHistory();
   const dispatch = useDispatch();
   const updateCurrentPath = path =>

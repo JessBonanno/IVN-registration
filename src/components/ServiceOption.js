@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Chip } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { Grid,  Chip } from '@material-ui/core';
 
 import OptionsDialog from './OptionsDialog';
 
@@ -33,10 +31,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// ! need to add window to top funcion
 export default function ServiceOption(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+    // set window to top on render 
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -47,7 +48,6 @@ export default function ServiceOption(props) {
   };
   return (
     <Grid container>
-      {/* {servicesOffered.map(service => ( */}
       <>
         <Grid item>
           <Chip
