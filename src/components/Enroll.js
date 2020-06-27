@@ -10,7 +10,7 @@ import {
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AlarmIcon from '@material-ui/icons/Alarm';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actionCreators from '../store/actions/services';
+import * as actionCreators from '../store/actions/index';
 import { useHistory } from 'react-router-dom';
 
 // data for dropdowns
@@ -63,7 +63,6 @@ export default function Enroll() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history.location.path]);
 
-  console.log(history);
   // ! add logic to store user entries
 
   return (

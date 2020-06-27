@@ -41,7 +41,6 @@ function App() {
     return state.srv.currentPath;
   });
 
-  console.log(currentPath);
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);

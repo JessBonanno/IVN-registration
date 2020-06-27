@@ -11,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actionCreators from '../store/actions/services';
+import * as actionCreators from '../store/actions/index';
 
 export default function OptionsDialog(props) {
   const dispatch = useDispatch();
@@ -20,12 +20,13 @@ export default function OptionsDialog(props) {
   const servicesOffered = useSelector(state => {
     return state.srv.servicesOffered;
   });
-  
+  const addUserChoices = choices =>
+    dispatch(actionCreators.addUserChoices(choices));
 
   const handleSubmit = () => {
     addService(props.service);
     props.handleClose();
-    console.log(selections);
+    addUserChoices(selections);
   };
 
   const handleCancel = () => {
@@ -35,10 +36,10 @@ export default function OptionsDialog(props) {
   const handleChange = (e, service, question) => {
     e.persist();
     setSelections({
-       ...selections, 
-       service: service,
-       [e.target.name]: e.target.value });
-
+      ...selections,
+      service: service,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -74,7 +75,7 @@ export default function OptionsDialog(props) {
                   style={{ width: 200 }}
                   id={q.name}
                   value={selections ? selections[q.name] : ''}
-                  onChange={(e) => handleChange(e, props.service, q)}
+                  onChange={e => handleChange(e, props.service, q)}
                   name={q.name}>
                   <MenuItem value='None'>None</MenuItem>
                   {choices.map(choice => {

@@ -2,8 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   currentPath: '',
-  users: ['Individual', 'Social Service Organization', 'Business'],
-  userChoices: [],
+  // users: ['Individual', 'Social Service Organization', 'Business'],
+  // userChoices: [],
   servicesOffered: [
     {
       name: 'Personal Protection Products',
@@ -182,7 +182,6 @@ const reducer = (state = initialState, action) => {
       const service = state.servicesOffered.filter(
         service => service.id === action.payload.id
       );
-      console.log('reducer service: ', service);
       return {
         ...state,
         selectedServices: [...state.selectedServices, service],
@@ -201,23 +200,12 @@ const reducer = (state = initialState, action) => {
         ],
       };
     case actionTypes.REMOVE_SERVICE:
-      console.log('test');
       return {
         ...state,
         selectedService: [
           state.selectedServices.filter(s => s.id !== action.payload.id),
         ],
       };
-    case actionTypes.ADD_RESPONSES:
-      return state;
-      case actionTypes.ADD_USER_CHOICES:
-        return {
-          ...state,
-          userChoices: [
-            ...state.userChoices,
-            action.payload
-          ]
-        }
     default:
       return state;
   }

@@ -10,7 +10,7 @@ import {
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AlarmIcon from '@material-ui/icons/Alarm';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actionCreators from '../store/actions/services';
+import * as actionCreators from '../store/actions/index';
 import { useHistory } from 'react-router-dom';
 
 export default function Review() {

@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import { Typography, Grid, Avatar, IconButton } from '@material-ui/core';
 import ServiceOption from './ServiceOption';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actionCreators from '../store/actions/services';
+import * as actionCreators from '../store/actions/index';
 
 import { useHistory } from 'react-router-dom';
 // local components
@@ -63,7 +63,7 @@ export default function ServiceRequests() {
     return state.srv.servicesOffered;
   });
   const users = useSelector(state => {
-    return state.srv.users;
+    return state.usr.users;
   });
 
   const [selectedUser, setSelectedUser] = useState();
