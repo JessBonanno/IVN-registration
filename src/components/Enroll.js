@@ -57,8 +57,6 @@ export default function Enroll() {
   const dispatch = useDispatch();
   const updateCurrentPath = path =>
     dispatch(actionCreators.updateCurrentPath(path));
-  const addUserAvailability = info =>
-    dispatch(actionCreators.addUserAvailability(info));
   const userAvailability = useSelector(state => {
     return state.usr.userAvailability;
   });
@@ -78,17 +76,11 @@ export default function Enroll() {
     zip: '',
     country: '',
     timezone: '',
-    availability: '',
     immigrant: false,
     fromCountry: '',
   });
 
   const handleSubmit = () => {
-    setUserInfo({
-      ...userInfo,
-      availability: userAvailability,
-    });
-
     addUserInformation(userInfo);
     setUserInfo({
       firstname: '',
@@ -101,7 +93,6 @@ export default function Enroll() {
       zip: '',
       country: '',
       timezone: '',
-      availability: '',
       immigrant: false,
       fromCountry: '',
     });

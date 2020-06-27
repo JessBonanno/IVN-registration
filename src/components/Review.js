@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  TextField,
-  Grid,
-  IconButton,
-  Typography,
-  Button,
-} from '@material-ui/core';
+import { TextField, Grid, Typography, Button } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import AlarmIcon from '@material-ui/icons/Alarm';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../store/actions/index';
 import { useHistory } from 'react-router-dom';
+
+// local comopnents
+import AvailabilityDialog from './AvailabilityDialog';
 
 // data for dropdowns
 import { states, countries, timeZones } from '../dropdownData';
@@ -63,12 +59,6 @@ export default function Enroll() {
     return state.usr.userInformation;
   });
   const [userInfo, setUserInfo] = useState(savedInformation);
-  const [dropdownValues, setDropdownValues] = useState({
-    fromCountry: '',
-    state: '',
-    country: '',
-    timezone: '',
-  });
 
   useEffect(() => {
     updateCurrentPath(history.location.pathname);
@@ -86,155 +76,283 @@ export default function Enroll() {
   console.log(userInfo);
   return (
     // main container for page
-    <Grid
-      container
-      direction='column'
-      alignItems='center'
-      className={classes.enrollContainer}>
-      {/* inputs item */}
-      <Grid item style={{ width: 470 }}>
-        <form className={classes.root} noValidate autoComplete='off'>
-          {/* inputs container */}
-          <Grid container direction='column' className={classes.enrollSection}>
-            {/* name container */}
+    <Grid container>
+      <Grid
+        container
+        direction='column'
+        alignItems='center'
+        className={classes.infoContainer}>
+        {/* inputs item */}
+        <Grid item style={{ width: 470 }}>
+          <form className={classes.root} noValidate autoComplete='off'>
+            {/* inputs container */}
+            <Grid
+              container
+              direction='column'
+              className={classes.enrollSection}>
+              {/* name container */}
 
-            <Grid item justify='space-between' container>
-              <Grid item>
+              <Grid item justify='space-between' container>
+                <Grid item>
+                  <TextField
+                    className={classes.input}
+                    variant='outlined'
+                    id='firstname'
+                    name='firstname'
+                    value={userInfo.firstname}
+                    type='text'
+                    label='First Name'
+                    onChange={handleChanges}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    className={classes.input}
+                    variant='outlined'
+                    id='lastname'
+                    name='lastname'
+                    value={userInfo.lastname}
+                    type='text'
+                    label='Last Name'
+                    onChange={handleChanges}
+                  />
+                </Grid>
+              </Grid>
+
+              {/* phone email container */}
+
+              <Grid item justify='space-between' container>
+                <Grid item>
+                  <TextField
+                    className={classes.input}
+                    variant='outlined'
+                    id='email'
+                    name='email'
+                    value={userInfo.email}
+                    type='email'
+                    label='Email'
+                    onChange={handleChanges}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    className={classes.input}
+                    variant='outlined'
+                    id='phone'
+                    name='phone'
+                    value={userInfo.phone}
+                    type='tel'
+                    label='Phone Number'
+                    onChange={handleChanges}
+                  />
+                </Grid>
+              </Grid>
+
+              {/* address section */}
+
+              <Grid item justify='center' container>
                 <TextField
+                  style={{ width: '100%' }}
                   className={classes.input}
                   variant='outlined'
-                  id='firstname'
-                  name='firstname'
-                  value={userInfo.firstname}
+                  id='address'
+                  name='address'
+                  value={userInfo.address}
                   type='text'
-                  label='First Name'
+                  label='Address'
                   onChange={handleChanges}
                 />
               </Grid>
-              <Grid item>
-                <TextField
-                  className={classes.input}
-                  variant='outlined'
-                  id='lastname'
-                  name='lastname'
-                  value={userInfo.lastname}
-                  type='text'
-                  label='Last Name'
-                  onChange={handleChanges}
-                />
+
+              {/* city state  container */}
+
+              <Grid item justify='space-between' container>
+                <Grid item>
+                  <TextField
+                    className={classes.input}
+                    variant='outlined'
+                    id='city'
+                    name='city'
+                    value={userInfo.city}
+                    type='text'
+                    label='City'
+                    onChange={handleChanges}
+                  />
+                </Grid>
+                <Grid item>
+                  <Autocomplete
+                    className={classes.dropdown}
+                    id='state'
+                    options={states}
+                    getOptionLabel={option => option}
+                    style={{ width: 300 }}
+                    value={userInfo.state}
+                    onChange={(event, newValue) => {
+                      setUserInfo({
+                        ...userInfo,
+                        state: newValue,
+                      });
+                    }}
+                    renderInput={params => (
+                      <TextField
+                        {...params}
+                        label='State'
+                        variant='outlined'
+                        name='state'
+                      />
+                    )}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item container justify='space-between'>
+                <Grid item>
+                  <TextField
+                    className={classes.input}
+                    variant='outlined'
+                    id='zip'
+                    name='zip'
+                    value={userInfo.zip}
+                    type='postal'
+                    label='Zip'
+                    onChange={handleChanges}
+                  />
+                </Grid>
+                <Grid item>
+                  <Autocomplete
+                    className={classes.dropdown}
+                    id='country'
+                    options={countries}
+                    getOptionLabel={option => option}
+                    style={{ width: 300 }}
+                    value={userInfo.country}
+                    onChange={(event, newValue) => {
+                      setUserInfo({
+                        ...userInfo,
+                        country: newValue,
+                      });
+                    }}
+                    renderInput={params => (
+                      <TextField
+                        {...params}
+                        label='Country'
+                        variant='outlined'
+                        name='country'
+                      />
+                    )}
+                  />
+                </Grid>
+              </Grid>
+
+              {/* time container */}
+
+              <Grid item container justify='space-between' alignItems='center'>
+                <Grid item>
+                  <Autocomplete
+                    className={classes.dropdown}
+                    id='timezone'
+                    options={timeZones}
+                    getOptionLabel={option => option}
+                    style={{ width: 300 }}
+                    value={userInfo.timezone}
+                    onChange={(event, newValue) => {
+                      setUserInfo({
+                        ...userInfo,
+                        timezone: newValue,
+                      });
+                    }}
+                    renderInput={params => (
+                      <TextField
+                        {...params}
+                        label='Time Zone'
+                        variant='outlined'
+                        name='timezone'
+                      />
+                    )}
+                  />
+                </Grid>
+                <Grid item container alignItems='center'>
+                  <Grid item>
+                    <Typography variant='subtitle2'>
+                      When is the best time to reach you?
+                    </Typography>
+                  </Grid>
+                  <Grid item style={{ marginBottom: '1.4em' }}>
+                    {/* <IconButton variant='contained'>
+                        <AlarmIcon color='primary' />
+                      </IconButton> */}
+                    <AvailabilityDialog />
+                  </Grid>{' '}
+                </Grid>
               </Grid>
             </Grid>
-
-            {/* phone email container */}
-
-            <Grid item justify='space-between' container>
-              <Grid item>
-                <TextField
-                  className={classes.input}
-                  variant='outlined'
-                  id='email'
-                  name='email'
-                  value={userInfo.email}
-                  type='email'
-                  label='Email'
-                  onChange={handleChanges}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  className={classes.input}
-                  variant='outlined'
-                  id='phone'
-                  name='phone'
-                  value={userInfo.phone}
-                  type='tel'
-                  label='Phone Number'
-                  onChange={handleChanges}
-                />
-              </Grid>
+          </form>
+        </Grid>
+        {/* immigration status */}
+        <Grid item>
+          <Grid
+            container
+            direction='column'
+            alignItems='center'
+            justify='center'
+            className={classes.enrollSection}>
+            <Grid item>
+              <Typography variant='subtitle1' style={{ margin: '1em 0' }}>
+                Are you an immigrant in the country you live in?
+              </Typography>
             </Grid>
-
-            {/* address section */}
-
-            <Grid item justify='center' container>
-              <TextField
-                style={{ width: '100%' }}
-                className={classes.input}
-                variant='outlined'
-                id='address'
-                name='address'
-                value={userInfo.address}
-                type='text'
-                label='Address'
-                onChange={handleChanges}
-              />
-            </Grid>
-
-            {/* city state  container */}
-
-            <Grid item justify='space-between' container>
-              <Grid item>
-                <TextField
-                  className={classes.input}
-                  variant='outlined'
-                  id='city'
-                  name='city'
-                  value={userInfo.city}
-                  type='text'
-                  label='City'
-                  onChange={handleChanges}
-                />
-              </Grid>
-              <Grid item>
-                <Autocomplete
-                  className={classes.dropdown}
-                  id='state'
-                  options={states}
-                  getOptionLabel={option => option}
-                  style={{ width: 300 }}
-                  value={userInfo.state}
-                  onChange={(event, newValue) => {
+            <Grid item container justify='center' alignItems='center'>
+              <Grid item className={classes.enrollButtons}>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  onClick={() =>
                     setUserInfo({
                       ...userInfo,
-                      state: newValue,
-                    });
-                  }}
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      label='State'
-                      variant='outlined'
-                      name='state'
-                    />
-                  )}
-                />
+                      immigrant: true,
+                    })
+                  }>
+                  Yes
+                </Button>
+              </Grid>
+              <Grid item className={classes.enrollButtons}>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  onClick={() =>
+                    setUserInfo({
+                      ...userInfo,
+                      immigrant: false,
+                    })
+                  }>
+                  No
+                </Button>
               </Grid>
             </Grid>
-            <Grid item container justify='space-between'>
-              <Grid item>
-                <TextField
-                  className={classes.input}
-                  variant='outlined'
-                  id='zip'
-                  name='zip'
-                  value={userInfo.zip}
-                  type='postal'
-                  label='Zip'
-                  onChange={handleChanges}
-                />
-              </Grid>
+            <Grid item>
+              <Typography
+                variant='subtitle1'
+                style={{
+                  maxWidth: '70%',
+                  margin: '1em auto',
+                  textAlign: 'center',
+                }}>
+                If you answered no to the above question, Which country did you
+                emigrate FROM?
+              </Typography>
+            </Grid>
+            <form>
               <Grid item>
                 <Autocomplete
                   className={classes.dropdown}
-                  id='country'
+                  id='fromCountry'
                   options={countries}
                   getOptionLabel={option => option}
                   style={{ width: 300 }}
-                  value={userInfo.country}
+                  value={userInfo.fromCountry}
                   onChange={(event, newValue) => {
                     setUserInfo({
                       ...userInfo,
-                      country: newValue,
+                      fromCountry: newValue,
                     });
                   }}
                   renderInput={params => (
@@ -242,144 +360,27 @@ export default function Enroll() {
                       {...params}
                       label='Country'
                       variant='outlined'
-                      name='country'
+                      name='fromCountry'
                     />
                   )}
                 />
               </Grid>
-            </Grid>
-
-            {/* time container */}
-
-            <Grid item container justify='space-between' alignItems='center'>
-              <Grid item>
-                <Autocomplete
-                  className={classes.dropdown}
-                  id='timezone'
-                  options={timeZones}
-                  getOptionLabel={option => option}
-                  style={{ width: 300 }}
-                  value={userInfo.timezone}
-                  onChange={(event, newValue) => {
-                    setUserInfo({
-                      ...userInfo,
-                      timezone: newValue,
-                    });
-                  }}
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      label='Time Zone'
-                      variant='outlined'
-                      name='timezone'
-                    />
-                  )}
-                />
+              <Grid item align='center'>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  style={{ margin: '1em' }}
+                  onClick={() => addUserInformation(userInfo)}>
+                  Confirm Information
+                </Button>
               </Grid>
-              <Grid item container alignItems='center'>
-                <Grid item>
-                  <Typography variant='subtitle2'>
-                    When is the best time to reach you?
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <IconButton variant='contained'>
-                    <AlarmIcon color='primary' />
-                  </IconButton>
-                </Grid>{' '}
-              </Grid>
-            </Grid>
+            </form>
           </Grid>
-        </form>
+        </Grid>
       </Grid>
-      {/* immigration status */}
       <Grid item>
-        <Grid
-          container
-          direction='column'
-          alignItems='center'
-          justify='center'
-          className={classes.enrollSection}>
-          <Grid item>
-            <Typography variant='subtitle1' style={{ margin: '1em 0' }}>
-              Are you an immigrant in the country you live in?
-            </Typography>
-          </Grid>
-          <Grid item container justify='center' alignItems='center'>
-            <Grid item className={classes.enrollButtons}>
-              <Button
-                variant='contained'
-                color='secondary'
-                onClick={() =>
-                  setUserInfo({
-                    ...userInfo,
-                    immigrant: true,
-                  })
-                }>
-                Yes
-              </Button>
-            </Grid>
-            <Grid item className={classes.enrollButtons}>
-              <Button
-                variant='contained'
-                color='secondary'
-                onClick={() =>
-                  setUserInfo({
-                    ...userInfo,
-                    immigrant: false,
-                  })
-                }>
-                No
-              </Button>
-            </Grid>
-          </Grid>
-          <Grid item>
-            <Typography
-              variant='subtitle1'
-              style={{
-                maxWidth: '70%',
-                margin: '1em auto',
-                textAlign: 'center',
-              }}>
-              If you answered no to the above question, Which country did you
-              emigrate FROM?
-            </Typography>
-          </Grid>
-          <form>
-            <Grid item>
-              <Autocomplete
-                className={classes.dropdown}
-                id='fromCountry'
-                options={countries}
-                getOptionLabel={option => option}
-                style={{ width: 300 }}
-                value={userInfo.fromCountry}
-                onChange={(event, newValue) => {
-                  setUserInfo({
-                    ...userInfo,
-                    fromCountry: newValue,
-                  });
-                }}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label='Country'
-                    variant='outlined'
-                    name='fromCountry'
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item align='center'>
-              <Button
-                variant='contained'
-                color='primary'
-                style={{ margin: '1em' }}
-                onClick={() => addUserInformation(userInfo)}>
-                Confirm Information
-              </Button>
-            </Grid>
-          </form>
+        <Grid container className={classes.selectionsContianer}>
+            {/* need table here with selected choices view */}
         </Grid>
       </Grid>
     </Grid>

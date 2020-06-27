@@ -18,7 +18,8 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userInformation: action.payload,
-      };    case actionTypes.ADD_USER_AVAILABILITY:
+      };
+    case actionTypes.ADD_USER_AVAILABILITY:
       return {
         ...state,
         userAvailability: action.payload,
