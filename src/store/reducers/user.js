@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   users: ['Help Seeker', 'Volunteer', 'Partner'],
+  userType: '',
   userAvailability: {},
   userInformation: {},
   userChoices: [],
@@ -9,6 +10,11 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+      case actionTypes.SET_USER_TYPE: 
+      return {
+          ...state,
+          userType: action.payload,
+      };
     case actionTypes.ADD_USER_CHOICES:
       return {
         ...state,

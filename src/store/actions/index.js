@@ -5,6 +5,7 @@ export {
     removeService,
 } from './services';
 export {
+    setUserType,
     addUserAvailability,
     addUserChoices,
     addUserInformation,

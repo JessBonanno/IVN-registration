@@ -20,6 +20,9 @@ import Review from './Review';
 import Submitted from './Submitted';
 import Start from './Start';
 
+// data text
+import { textScheme } from '../data/userTextScheme';
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '80%',
@@ -29,8 +32,10 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
   instructions: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(5),
     marginBottom: theme.spacing(1),
+    fontSize: '1.5rem',
+    textAlign: 'center',
   },
   stepperNavContainer: {
     margin: '3em 0',
@@ -43,8 +48,16 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const userType = useSelector(state => {
+    return state.usr.userType;
+  });
+  const userText = textScheme.filter(scheme => scheme.userType === userType);
+
   const currentPath = useSelector(state => {
     return state.srv.currentPath;
+  });
+  const selectedServices = useSelector(state => {
+    return state.srv.selectedServices;
   });
 
   const classes = useStyles();
@@ -62,9 +75,13 @@ function App() {
       case 0:
         return 'Start Here';
       case 1:
-        return 'What would you like to request help for?';
+        return `${
+          selectedServices.length === 0
+            ? userText[0].optionsText
+            : userText[0].optionsTextAlt
+        }`;
       case 2:
-        return 'Enroll as a Help Seeker';
+        return `${userText[0].enroll}`;
       case 3:
         return 'Please verify the following information before you submit this form';
       default:
@@ -112,7 +129,6 @@ function App() {
     </div>
   );
 
-  console.log(currentPath);
 
   const stepperNav = (
     <Grid
@@ -137,6 +153,7 @@ function App() {
       </Grid>
       <Grid item>
         <Button
+          disabled={userType === ''}
           component={Link}
           to={
             currentPath === '/'

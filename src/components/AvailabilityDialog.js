@@ -73,7 +73,6 @@ function SimpleDialog(props) {
     onClose(selectedValue);
     addUserAvailability(choices);
   };
-  console.log(userAvailability);
 
   return (
     <Dialog

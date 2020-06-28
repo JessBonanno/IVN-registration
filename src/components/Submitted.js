@@ -18,6 +18,8 @@ export default function Submitted() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history.location.path]);
 
+
+  
   return (
     <Grid
       container

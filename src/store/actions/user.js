@@ -1,5 +1,12 @@
 import * as actionTypes from './actionTypes.js';
 
+export const setUserType = user => {
+  return {
+    type: actionTypes.SET_USER_TYPE,
+    payload: user,
+  };
+};
+
 export const addUserChoices = choices => {
   return {
     type: actionTypes.ADD_USER_CHOICES,

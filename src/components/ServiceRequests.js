@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Typography, Grid, Avatar, IconButton } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import ServiceOption from './ServiceOption';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../store/actions/index';
 
 import { useHistory } from 'react-router-dom';
-// local components
+// data text
+import {textScheme} from '../data/userTextScheme';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -44,10 +45,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ServiceRequests() {
-    // set window to top on render 
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
+  // set window to top on render
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -62,11 +63,10 @@ export default function ServiceRequests() {
   const services = useSelector(state => {
     return state.srv.servicesOffered;
   });
-  const users = useSelector(state => {
-    return state.usr.users;
+  const userType = useSelector(state => {
+    return state.usr.userType;
   });
-
-  const [selectedUser, setSelectedUser] = useState();
+  const userText = textScheme.filter(scheme => scheme.userType === userType);
 
   return (
     <div className={classes.paper}>
@@ -76,51 +76,11 @@ export default function ServiceRequests() {
           direction='column'
           alignItems='center'
           className={classes.gridContainer}>
-          <Grid item>
-            <Typography variant='h3'>What are you?</Typography>
-          </Grid>
-
-          <Grid
-            item
-            container
-            justify='space-evenly'
-            style={{ margin: '2em 0' }}>
-            {users.map(user => (
-              <Grid
-                key={user}
-                item
-                container
-                direction='column'
-                //   justify='center'
-                alignItems='center'
-                className={classes.avatarContainer}>
-                <Grid item style={{ margin: '1em' }}>
-                  <IconButton onClick={() => setSelectedUser(user)}>
-                    <Avatar
-                      className={
-                        selectedUser === user ? classes.large : undefined
-                      }></Avatar>
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <Typography variant='subtitle2' style={{textAlign: 'center'}}>{user}</Typography>
-                </Grid>
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-      </Paper>
-      <Paper elevation={1}>
-        <Grid
-          container
-          direction='column'
-          alignItems='center'
-          className={classes.gridContainer}>
-          <Grid item>
+          {/* <Grid item>
             <Typography variant='h3'>
-              What would you like to request help for?
+              {userText[0].optionsText}
             </Typography>
-          </Grid>
+          </Grid> */}
           <Grid
             item
             container

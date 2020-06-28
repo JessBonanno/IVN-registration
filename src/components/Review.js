@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Grid, Typography, Button } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../store/actions/index';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { useHistory } from 'react-router-dom';
 
 // local components
 import AvailabilityDialog from './AvailabilityDialog';
+import ReviewTable from './ReviewTable';
 
 // data for dropdowns
 import { states, countries, timeZones } from '../data/dropdownData';
@@ -45,7 +49,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 export default function Enroll() {
-      // set window to top on render 
+  // set window to top on render
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -60,6 +64,11 @@ export default function Enroll() {
     return state.usr.userInformation;
   });
   const [userInfo, setUserInfo] = useState(savedInformation);
+  const [terms, setTerms] = useState(false);
+
+  const handleChange = () => {
+    setTerms(!terms);
+  };
 
   useEffect(() => {
     updateCurrentPath(history.location.pathname);
@@ -73,7 +82,6 @@ export default function Enroll() {
     });
   };
 
-  console.log(userInfo);
   return (
     // main container for page
     <Grid container>
@@ -365,22 +373,56 @@ export default function Enroll() {
                   )}
                 />
               </Grid>
-              <Grid item align='center'>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  style={{ margin: '1em' }}
-                  onClick={() => addUserInformation(userInfo)}>
-                  Confirm Information
-                </Button>
-              </Grid>
             </form>
           </Grid>
         </Grid>
       </Grid>
       <Grid item>
         <Grid container className={classes.selectionsContainer}>
-            {/* need table here with selected choices view */}
+          {/* need table here with selected choices view */}
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        direction='column'
+        justify='center'
+        alignItems='center'
+        style={{ marginTop: '2em' }}>
+        <ReviewTable />
+        <Grid item>
+          <Button
+            component={Link}
+            to='/services'
+            variant='contained'
+            color='primary'
+            style={{ margin: '2em' }}>
+            Edit / ADD{' '}
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid item container justify='center' alignItems='center'>
+        <Grid item style={{ marginTop: '4em' }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={terms}
+                onChange={handleChange}
+                name='terms'
+                color='primary'
+              />
+            }
+            label='I agree to the terms and conditions'
+          />
+          <Grid item align='center'>
+            <Button
+              disabled={!terms}
+              variant='contained'
+              color='primary'
+              //   style={{ margin: '1em' }}
+              onClick={() => addUserInformation(userInfo)}>
+              Confirm Information
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

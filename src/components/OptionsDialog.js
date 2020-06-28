@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as actionCreators from '../store/actions/index';
 
 export default function OptionsDialog(props) {
@@ -16,10 +16,11 @@ export default function OptionsDialog(props) {
     window.scrollTo(0, 0);
   }, []);
   const dispatch = useDispatch();
-  const [selections, setSelections] = useState();
+  const [selections, setSelections] = useState(null);
   const addService = service => dispatch(actionCreators.addService(service));
   const addUserChoices = choices =>
     dispatch(actionCreators.addUserChoices(choices));
+
 
   const handleSubmit = () => {
     addService(props.service);
@@ -31,14 +32,15 @@ export default function OptionsDialog(props) {
     props.handleClose();
   };
   //  storing values from question popup
-  const handleChange = (e, service, question) => {
-    e.persist();
+  const handleChange = (e, service) => {
+    // e.persist();
     setSelections({
       ...selections,
       service: service,
       [e.target.name]: e.target.value,
     });
   };
+
 
   return (
     <div>
@@ -61,7 +63,7 @@ export default function OptionsDialog(props) {
             return (
               <>
                 <DialogContentText
-                key={q}
+                  key={q}
                   style={{
                     marginTop: '1em',
                     fontSize: '1.3rem',
@@ -78,7 +80,11 @@ export default function OptionsDialog(props) {
                   name={q.name}>
                   <MenuItem value='None'>None</MenuItem>
                   {choices.map(choice => {
-                    return <MenuItem key={choice} value={choice}>{choice}</MenuItem>;
+                    return (
+                      <MenuItem key={choice} value={choice}>
+                        {choice}
+                      </MenuItem>
+                    );
                   })}
                 </Select>
 
@@ -100,6 +106,7 @@ export default function OptionsDialog(props) {
             Cancel
           </Button>
           <Button
+            disabled={selections === null}
             onClick={() => handleSubmit(props.service.id)}
             color='primary'>
             Submit

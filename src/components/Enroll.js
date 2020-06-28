@@ -110,7 +110,6 @@ export default function Enroll() {
     });
   };
 
-  console.log(userInfo);
   return (
     // main container for page
     <Grid
