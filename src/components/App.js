@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import theme from './ui/Theme';
@@ -18,6 +18,7 @@ import ServiceRequests from './ServiceRequests';
 import Enroll from './Enroll';
 import Review from './Review';
 import Submitted from './Submitted';
+import Start from './Start';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
-  // set window to top on render 
+  // set window to top on render
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -53,16 +54,18 @@ function App() {
 
   // get steps and get step content populate the stepper and associated text
   function getSteps() {
-    return ['Service Requests', 'Personal Information', 'Verification'];
+    return ['Start', 'Services', 'Personal Information', 'Verification'];
   }
 
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return 'What would you like to request help for?';
+        return 'Start Here';
       case 1:
-        return 'Enroll as a Help Seeker';
+        return 'What would you like to request help for?';
       case 2:
+        return 'Enroll as a Help Seeker';
+      case 3:
         return 'Please verify the following information before you submit this form';
       default:
         return '';
@@ -76,7 +79,6 @@ function App() {
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
-
 
   const stepper = (
     <div className={classes.root}>
@@ -120,7 +122,13 @@ function App() {
       <Grid item>
         <Button
           component={Link}
-          to={currentPath === '/review' ? '/enroll' : '/'}
+          to={
+            currentPath === '/review'
+              ? '/enroll'
+              : currentPath === '/enroll'
+              ? '/services'
+              : currentPath === '/services' && '/'
+          }
           disabled={activeStep === 0}
           onClick={handleBack}
           className={classes.button}>
@@ -132,10 +140,14 @@ function App() {
           component={Link}
           to={
             currentPath === '/'
+              ? '/services'
+              : currentPath === '/services'
               ? '/enroll'
               : currentPath === '/enroll'
               ? '/review'
-              : currentPath === '/review' && '/finished'
+              : currentPath === '/review'
+              ? '/finished'
+              : currentPath === '/finished' && undefined
           }
           variant='contained'
           color='primary'
@@ -152,9 +164,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           {stepper}
+          <Route exact path='/' render={props => <Start {...props} />} />
+
           <Route
             exact
-            path='/'
+            path='/services'
             render={props => <ServiceRequests {...props} />}
           />
           <Route path='/enroll' render={props => <Enroll {...props} />} />
